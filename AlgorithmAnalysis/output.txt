@@ -1,0 +1,17 @@
+input1.txt
+Bubble Sort: = Ascending : 18575 millisecond, Descending : 18516 millisecond
+Merge Sort: = Ascending : 25 millisecond, Descending : 11264 millisecond
+Quick Sort: = Ascending : 20 millisecond, Descending : 26 millisecond
+Best Sorting: = Ascending : Quick Sort, Descending : Quick Sort
+
+input2.txt
+Bubble Sort: = Ascending : 2486 millisecond, Descending : 3698 millisecond
+Merge Sort: = Ascending : 16 millisecond, Descending : 3716 millisecond
+Quick Sort: = Ascending : 5 millisecond, Descending : 6 millisecond
+Best Sorting: = Ascending : Quick Sort, Descending : Quick Sort
+
+input3.txt
+Bubble Sort: = Ascending : 3775 millisecond, Descending : 2475 millisecond
+Merge Sort: = Ascending : 7 millisecond, Descending : 2478 millisecond
+Quick Sort: = Ascending : 5 millisecond, Descending : 5 millisecond
+Best Sorting: = Ascending : Quick Sort, Descending : Quick Sort
