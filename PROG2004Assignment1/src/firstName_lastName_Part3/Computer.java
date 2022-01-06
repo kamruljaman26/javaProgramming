@@ -1,6 +1,6 @@
-package firstName_lastName_Part1;
+package firstName_lastName_Part3;
 
-public class Computer {
+public abstract class Computer {
 
     // computer properties
     private String make;
@@ -67,10 +67,6 @@ public class Computer {
         this.hdd = hdd;
     }
 
-    // print computer details
-    public void printDetails() {
-        // print computer
-        System.out.printf("Make:%s, Model:%s, Ram:%.2f GB, Hdd:%d  GB\n",
-                make, model, ram, hdd);
-    }
+    // print computer details, need to implement
+    public abstract void printDetails();
 }

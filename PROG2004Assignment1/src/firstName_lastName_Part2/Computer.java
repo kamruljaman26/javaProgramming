@@ -1,4 +1,4 @@
-package firstName_lastName_Part1;
+package firstName_lastName_Part2;
 
 public class Computer {
 
