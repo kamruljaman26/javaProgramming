@@ -1,39 +1,42 @@
-package jacobwilliamproject;
-
 import java.util.Objects;
 
+/**
+ * Tuple object to hold tuple values
+ * @param <T>
+ * @param <S>
+ */
 public class Tuple<T, S> {
 
     private T t;
     private S s;
 
-    // default constructor
+    /**
+     * default constructor
+     * @param t object
+     * @param s object
+     */
     public Tuple(T t, S s) {
         this.t = t;
         this.s = s;
     }
 
-    // get T
     public T getT() {
         return t;
     }
 
-    // set T
     public void setT(T t) {
         this.t = t;
     }
 
-    // get S
     public S getS() {
         return s;
     }
 
-    // set S
     public void setS(S s) {
         this.s = s;
     }
 
-    // equal method for compare to Tuple
+    // equal method to compare 2 object
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -47,10 +50,9 @@ public class Tuple<T, S> {
         return Objects.hash(t, s);
     }
 
-    // convert the tuple as a string
+    // represent the Tuple as a string
     @Override
     public String toString() {
-//        return "Tuple: (T=" + t + ", S=" + s + ')';
         return String.format("Tuple:(T=%s, S=%s) ", t, s);
     }
 }

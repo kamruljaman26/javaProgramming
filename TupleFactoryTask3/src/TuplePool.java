@@ -1,7 +1,8 @@
-package jacobwilliamproject;
-
-import java.util.Iterator;
-
+/**
+ *
+ * @param <T>
+ * @param <S>
+ */
 public class TuplePool<T, S> {
 
     private final TupleHashSet<T, S> tupleSet;
@@ -15,13 +16,11 @@ public class TuplePool<T, S> {
 
     //With this method a tuple shall be inserted into the pool.
     public Tuple<T, S> insertTuple(Tuple<T, S> tuple) {
-
         // if tuple already not exist return null & successfully added
         if (!tupleSet.contains(tuple) && tupleSet.insert(tuple)) {
             size++;
             return tuple;
         }
-
         // if not able to added
         return null;
     }

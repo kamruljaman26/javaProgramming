@@ -1,5 +1,3 @@
-package jacobwilliamproject;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -9,12 +7,16 @@ public class TupleHashSet<T, S> implements Iterable<Tuple<T, S>> {
     public static final int SIZE = 353;
 
     // to track/hold tuple insertion order
-    private final Integer[] orderTracker;
+    /**
+     * The
+     */
+    private final Integer[] insertOrders;
     private int counter = 0;
+    private int idx = 0;
 
     public TupleHashSet() {
         hashArr = new Tuple[SIZE];
-        orderTracker = new Integer[SIZE];
+        insertOrders = new Integer[SIZE];
     }
 
     private int hash(Tuple<T, S> t, int i) {
@@ -29,9 +31,9 @@ public class TupleHashSet<T, S> implements Iterable<Tuple<T, S>> {
 
         hashArr[i] = t;
         // based on adding order store reference index
-        orderTracker[counter] = i;
-
+        insertOrders[counter] = i;
         counter++;
+
         return true;
     }
 
@@ -111,24 +113,54 @@ public class TupleHashSet<T, S> implements Iterable<Tuple<T, S>> {
      */
     @Override
     public Iterator<Tuple<T, S>> iterator() {
+        /*
+         * Create new iterator
+         */
         return new Iterator<>() {
-
-            private int idx = 0;
+            int idx = 0;
 
             @Override
             public boolean hasNext() {
                 if (idx >= SIZE) return false;
-                if(orderTracker[idx] != null) return true;
+                if (insertOrders[idx] != null) return true;
                 return hashArr[idx] != null;
             }
 
             @Override
             public Tuple<T, S> next() {
-                Tuple<T, S> tuple = hashArr[orderTracker[idx]];
-                if (tuple == null) throw new NoSuchElementException();
-                idx++;
-                return tuple;
+                try {
+                    Tuple<T, S> tuple = hashArr[insertOrders[idx]];
+                    System.out.println(tuple);
+                    idx++;
+                    return tuple;
+                } catch (Exception e){
+                    throw new NoSuchElementException();
+                }
             }
         };
+    }
+
+    // for test purpose only
+    public static void main(String[] args) {
+/*        TupleHashSet<Integer, Integer> set = new TupleHashSet<>();
+        // add elements
+        for (int i = 0; i < TupleHashSet.SIZE * 2; i++) {
+            set.insert(new Tuple<>(i, i * i));
+        }
+        // print all
+        for (Tuple<Integer, Integer> tuple : set) {
+            System.out.print(tuple + " ");
+        }
+        System.out.println();
+
+        // iterate all tuple object from list
+        Iterator<Tuple<Integer, Integer>> iterator = set.iterator();
+        while (iterator.hasNext()) {
+            System.out.print(iterator.next() + " ");
+        }*/
+
+        TupleHashSet<Integer, Integer> set2 = new TupleHashSet<>();
+        Iterator<Tuple<Integer, Integer>> iterator2 = set2.iterator();
+        System.out.println(iterator2.next());
     }
 }
