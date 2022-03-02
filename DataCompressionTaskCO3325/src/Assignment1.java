@@ -1,9 +1,7 @@
-package assignment1;
-
 import java.util.*;
 
 public class Assignment1 {
-
+    
     /*
      * Find the longest substring match in 2 string
      */
@@ -32,10 +30,6 @@ public class Assignment1 {
 
     /**
      * find all matched substring from created matrix
-     *
-     * @param longS
-     * @param shortS
-     * @return
      */
     private ArrayList<String> findAllMatches(String longS, String shortS) {
         // store all sub strings from matrix
@@ -72,42 +66,49 @@ public class Assignment1 {
         }
 
         // convert the set to array and return
-        return new ArrayList<>(subStrings);
+        // sort the list based on string length
+        ArrayList<String> allMatches = new ArrayList<>(subStrings);
+        allMatches.sort((o1, o2) -> o2.length() - o1.length());
+        return allMatches;
     }
 
+    /**
+     * find all matches and sort by length and return an arraylist
+     */
     public String findLongestMatch(String longS, String shortS) {
         ArrayList<String> allMatches = findAllMatches(longS, shortS);
-        // sort the list based on string length
-        allMatches.sort((o1, o2) -> o2.length() - o1.length());
         return allMatches.get(0);
     }
 
-    public void displayAllLongestMatches(String longS, String shortS) {
-        // todo
+    /**
+     * Print all matches
+     */
+    public String displayAllLongestMatches(String longS, String shortS) {
+        ArrayList<String> allMatches = findAllMatches(longS, shortS);
+        return allMatches.toString();
     }
 
-    public String replaceLongestMatched() {
-        // todo
-        return null;
+    /**
+     * replace the match in long string
+     */
+    public String replaceLongestMatched(String longS, String shortS) {
+        String longestMatch = findLongestMatch(longS, shortS);
+        return longS.replace(longestMatch, "");
     }
 
-    // Test the program
-    public static void main(String[] args) {
-        // all example string/test data
+/*    public static void main(String[] args) {
         String long1 = "this_is_xx_an_example_and_another_example",
                 long2 = "this is xx an example and another example",
                 short1 = "xxx_n_example_xx",
                 short2 = "xxx n example xx";
 
-
-        Assignment1 as = new Assignment1();
-//        int[][] ints = as.buildMatrix(long1, short1);
-//        int[][] ints2 = as.buildMatrix(long2, short2);
-        ArrayList<String> allMatches = as.findAllMatches(long2, short2);
-        System.out.println(allMatches);
-
-        // print longest match
-        System.out.println(as.findLongestMatch(long2,short2));
-
-    }
+        Assignment1 a = new Assignment1();
+        int[][] ints = a.buildMatrix(long2, short2);
+        for (int i = 0; i < ints.length; i++) {
+            for (int j = 0; j < ints[i].length; j++) {
+                System.out.printf("%d, ", ints[i][j]);
+            }
+            System.out.println();
+        }
+    }*/
 }
