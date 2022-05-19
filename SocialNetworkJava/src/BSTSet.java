@@ -29,8 +29,9 @@ public class BSTSet<K extends Comparable<K>> implements Set<K> {
 
 	@Override
 	public boolean exists(K k) {
+		if (root == null) return false;
+
 		BSTSetNode<K> node = root;
-		if (node == null) return false;
 		while (node != null) {
 			K nKey = node.key;
 			if (nKey == k) {
@@ -81,11 +82,11 @@ public class BSTSet<K extends Comparable<K>> implements Set<K> {
 
 	@Override
 	public boolean remove(K k) {
-		boolean removed = false;
+		if(!exists(k)) return false; // if not exist
 		BSTSetNode<K> p;
-		p = remove(k, root, removed);//Not change
+		p = remove(k, root, false);
 		root = p;
-		return removed;
+		return !exists(k);
 	}
 
 	private BSTSetNode<K> remove(K key, BSTSetNode<K> p, boolean flag) {
@@ -191,4 +192,25 @@ public class BSTSet<K extends Comparable<K>> implements Set<K> {
 			}
 		};
 	}
+
+	public static void main(String[] args) {
+		BSTSet<Integer> set = new BSTSet<>();
+
+		set.insert(6);
+		set.insert(7);
+		set.insert(8);
+
+		Iterator<Integer> integerIterator = set.maxIt();
+		integerIterator.isValid();
+
+		System.out.println(integerIterator.next());
+		boolean remove = set.remove(7);
+		System.out.println(remove);
+
+		Iterator<Integer> integerIterator2 = set.minIt();
+		while (integerIterator2.isValid()) {
+			System.out.println(integerIterator2.next());
+		}
+	}
+
 }

@@ -49,59 +49,7 @@ public class Recommender {
     // Return the top k recommended friends for user i using common neighbors method.
     // If i does not exist, return null. In case of a tie, users with the lowest id are selected.
     public static <K extends Comparable<K>> PQK<Double, K> recommendCN(Graph<K> g, K i, int k) {
-
-        PQK<Double, K> pqk = new ArrayPQK<Double, K>(k);
-        Set<K> neiList = g.neighb(i);
-        Iterator<K> nodes = g.nodesIt();
-        Iterator<K> neighbors = neiList.minIt();
-
-        if (g.isNode(i)) {
-            while (nodes.isValid()) {
-                int count = 0;
-                K neikey = nodes.next();
-
-                Set<K> newNeiList = g.neighb(neikey);
-                if (!g.isEdge(i, neikey)) {
-                    if (neikey != i) {
-                        while (neighbors.isValid()) {
-                            K newkey = neighbors.next();
-                            if (newNeiList.exists(newkey)) {
-                                count++;
-                            }
-                        }
-
-                        if (count > 0) {
-                            pqk.enqueue((double) count, neikey);
-                        }
-                    }
-                }
-            }
-
-            if (pqk.length() < k) {
-                Set<K> set = new BSTSet<>();
-                //If Node is found
-                if (g.isNode(i)) {
-                    Iterator<K> iterator = g.nodesIt();
-                    while (iterator.isValid()) {
-                        K key = iterator.next();
-                        if (!g.isEdge(i, key)) {
-                            if (i != key) {
-                                set.insert(key);
-                            }
-                        }
-                    }
-
-                    Iterator<K> iterator2 = set.minIt();
-                    while (iterator2.isValid()){
-                        pqk.enqueue(0.0, iterator2.next());
-                    }
-                }
-            }
-
-            return pqk;
-        } else {
-            return null;
-        }
+        return null;
     }
 
     // Return the top k recommended friends for user i using weighted common neighbors method.
