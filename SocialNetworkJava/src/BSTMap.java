@@ -28,7 +28,7 @@ public class BSTMap<K extends Comparable<K>, T> implements Map<K, T> {
 
     @Override
     public boolean update(K k, T e) {
-//        remove(k);
+        remove(k);
         return insert(k, e);
     }
 
@@ -41,7 +41,7 @@ public class BSTMap<K extends Comparable<K>, T> implements Map<K, T> {
                 Integer nKey = (Integer) node.key;
                 Integer kKey = (Integer) k;
                 if (nKey.equals(kKey)) {
-                    return new Pair<>(true, node.data);
+                    return new Pair<Boolean, T>(true, node.data);
                 } else if (nKey > kKey) {
                     node = node.left;
                 } else {
@@ -50,7 +50,7 @@ public class BSTMap<K extends Comparable<K>, T> implements Map<K, T> {
             }
 
         }
-        return new Pair<>(false, null);
+        return new Pair<Boolean, T>(false, null);
     }
 
     private boolean findKey(K key) {
@@ -75,7 +75,7 @@ public class BSTMap<K extends Comparable<K>, T> implements Map<K, T> {
         if (findKey(k)) return false;
 
         if (root == null) {
-            root = new BSTMapNode<>(k, e);
+            root = new BSTMapNode<K, T>(k, e);
             return true;
         } else {
             root = insert(root, k, e);
@@ -86,7 +86,7 @@ public class BSTMap<K extends Comparable<K>, T> implements Map<K, T> {
     private BSTMapNode<K, T> insert(BSTMapNode<K, T> node, K key, T data) {
         // if the root is null, create a new node an return it
         if (node == null) {
-            return new BSTMapNode<>(key, data);
+            return new BSTMapNode<K, T>(key, data);
         }
 
         Integer kKey = (Integer) node.key;
@@ -153,28 +153,26 @@ public class BSTMap<K extends Comparable<K>, T> implements Map<K, T> {
     }
 
 
-    // Todo:
     @Override
     public Iterator<Pair<K, T>> minIt() {
         return new Iterator<Pair<K, T>>() {
 
             private int currentIndex = 0;
-            private Pair<K, T>[] iterArr;
+            private K[] iterArr;
 
             private void initArr(BSTMapNode<K, T> node) {
-                if (node == null) {
-                    return;
-                } else {
+                if (node != null) {
                     initArr(node.left);
-                    iterArr[currentIndex++] = new Pair<>(node.key, node.data);
+                    iterArr[currentIndex++] = node.key;
                     initArr(node.right);
                 }
             }
 
             @Override
+            @SuppressWarnings("unchecked")
             public boolean isValid() {
                 if (iterArr == null) {
-                    iterArr = new Pair[size()];
+                    iterArr = (K[]) new Comparable[size()];
                     initArr(root);
                     currentIndex = 0;
                 }
@@ -183,57 +181,55 @@ public class BSTMap<K extends Comparable<K>, T> implements Map<K, T> {
 
             @Override
             public Pair<K, T> next() {
-                if (isValid()) return iterArr[currentIndex++];
-                return null;
+                K k = iterArr[currentIndex++];
+                return new Pair<K, T>(k, retrieve(k).second);
             }
 
             @Override
             public Pair<K, T> prev() {
-                if ((currentIndex - 1) < 0) return null;
-                return iterArr[--currentIndex];
+                K k = iterArr[--currentIndex];
+                return new Pair<K, T>(k, retrieve(k).second);
             }
         };
     }
 
 
-    // Todo:
     @Override
     public Iterator<Pair<K, T>> maxIt() {
         return new Iterator<Pair<K, T>>() {
 
             private int currentIndex = 0;
-            private Pair<K, T>[] iterArr;
+            private K[] iterArr;
 
             private void initArr(BSTMapNode<K, T> node) {
-                if (node == null) {
-                    return;
-                } else {
+                if (node != null) {
                     initArr(node.left);
-                    iterArr[currentIndex++] = new Pair<>(node.key, node.data);
+                    iterArr[currentIndex++] = node.key;
                     initArr(node.right);
                 }
             }
 
             @Override
+            @SuppressWarnings("unchecked")
             public boolean isValid() {
                 if (iterArr == null) {
-                    iterArr = new Pair[size()];
+                    iterArr = (K[]) new Comparable[size()];
                     initArr(root);
-                    currentIndex = size()-1;
+                    currentIndex = size() - 1;
                 }
                 return currentIndex >= 0 && currentIndex != size();
             }
 
             @Override
             public Pair<K, T> next() {
-                if ((currentIndex + 1) >= size()) return null;
-                return iterArr[++currentIndex];
+                K k = iterArr[++currentIndex];
+                return new Pair<K, T>(k, retrieve(k).second);
             }
 
             @Override
             public Pair<K, T> prev() {
-                if (isValid()) return iterArr[currentIndex--];
-                return null;
+                K k = iterArr[currentIndex--];
+                return new Pair<K, T>(k, retrieve(k).second);
             }
         };
     }

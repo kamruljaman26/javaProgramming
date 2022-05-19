@@ -50,7 +50,7 @@ public class BSTSet<K extends Comparable<K>> implements Set<K> {
 		if (exists(k)) return false;
 
 		if (root == null) {
-			root = new BSTSetNode<>(k);
+			root = new BSTSetNode<K>(k);
 			return true;
 		} else {
 			root = insert(root, k);
@@ -61,7 +61,7 @@ public class BSTSet<K extends Comparable<K>> implements Set<K> {
 	private BSTSetNode<K> insert(BSTSetNode<K> node, K key) {
 		// if the root is null, create a new node an return it
 		if (node == null) {
-			return new BSTSetNode<>(key);
+			return new BSTSetNode<K>(key);
 		}
 
 		Integer kKey = (Integer) node.key;
@@ -116,18 +116,15 @@ public class BSTSet<K extends Comparable<K>> implements Set<K> {
 		return p;
 	}
 
-	// todo
 	@Override
 	public Iterator<K> minIt() {
 		return new Iterator<K>() {
 
 			private int currentIndex = 0;
-			private Object[] iterArr;
+			private K[] iterArr;
 
 			private void initArr(BSTSetNode<K> node) {
-				if (node == null) {
-					return;
-				} else {
+				if (node != null) {
 					initArr(node.left);
 					iterArr[currentIndex++] = node.key;
 					initArr(node.right);
@@ -135,10 +132,10 @@ public class BSTSet<K extends Comparable<K>> implements Set<K> {
 			}
 
 			@Override
+			@SuppressWarnings("unchecked")
 			public boolean isValid() {
 				if (iterArr == null) {
-					System.out.println("s::"+size());
-					iterArr =  new Object[size()];
+					iterArr = (K[]) new Comparable[size()];
 					initArr(root);
 					currentIndex = 0;
 				}
@@ -147,30 +144,25 @@ public class BSTSet<K extends Comparable<K>> implements Set<K> {
 
 			@Override
 			public K next() {
-				if ((currentIndex) >= size()) return null;
-				return (K) iterArr[currentIndex++];
+				return iterArr[currentIndex++];
 			}
 
 			@Override
 			public K prev() {
-				if (isValid()) return (K) iterArr[--currentIndex];
-				return null;
+				return iterArr[--currentIndex];
 			}
 		};
 	}
 
-	//todo
 	@Override
 	public Iterator<K> maxIt() {
 		return new Iterator<K>() {
 
 			private int currentIndex = 0;
-			private Object[] iterArr;
+			private K[] iterArr;
 
 			private void initArr(BSTSetNode<K> node) {
-				if (node == null) {
-					return;
-				} else {
+				if (node != null) {
 					initArr(node.left);
 					iterArr[currentIndex++] = node.key;
 					initArr(node.right);
@@ -178,9 +170,10 @@ public class BSTSet<K extends Comparable<K>> implements Set<K> {
 			}
 
 			@Override
+			@SuppressWarnings("unchecked")
 			public boolean isValid() {
 				if (iterArr == null) {
-					iterArr =  new Object[size()];
+					iterArr = (K[]) new Comparable[size()];
 					initArr(root);
 					currentIndex = size()-1;
 				}
@@ -189,14 +182,12 @@ public class BSTSet<K extends Comparable<K>> implements Set<K> {
 
 			@Override
 			public K next() {
-				if (currentIndex >= size()) return null;
-				return (K) iterArr[currentIndex++];
+				return iterArr[currentIndex++];
 			}
 
 			@Override
 			public K prev() {
-				if (isValid()) return (K) iterArr[currentIndex--];
-				return null;
+				return iterArr[currentIndex--];
 			}
 		};
 	}

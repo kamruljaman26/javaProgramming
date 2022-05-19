@@ -2,7 +2,7 @@ public class Main {
 
 	private static void testPQK() {
 		System.out.println("-------------------");
-		PQK<Integer, String> pq = new ArrayPQK<Integer, String>(3);
+		PQK<Integer, String> pq = new ArrayPQK<Integer, String>(10);
 		pq.enqueue(5, "A");
 		pq.enqueue(3, "B");
 		pq.enqueue(2, "C");
@@ -16,6 +16,7 @@ public class Main {
 		pq.enqueue(10, "K");
 		pq.enqueue(6, "L");
 		pq.enqueue(5, "M");
+
 		while (pq.length() > 0) {
 			Pair<Integer, String> p = pq.serve();
 			System.out.println(p.first + "\t" + p.second);
@@ -42,7 +43,6 @@ public class Main {
 			while (it.isValid()) {
 				Pair<Integer, Integer> p = it.prev();
 				System.out.println(p.first + "\t" + p.second);
-//				System.out.println("Kam");
 			}
 		}
 		System.out.println("-------------------");
@@ -115,20 +115,20 @@ public class Main {
 		}
 		System.out.println("----------");
 		{
-			PQK<Double, Integer> top = Recommender.recommendWCN(g, 3, 4);
-			while (top.length() > 0) {
-				Pair<Double, Integer> e = top.serve();
-				System.out.println(e.second + "\t" + e.first);
-			}
+//			PQK<Double, Integer> top = Recommender.recommendWCN(g, 3, 4);
+//			while (top.length() > 0) {
+//				Pair<Double, Integer> e = top.serve();
+//				System.out.println(e.second + "\t" + e.first);
+//			}
 		}
 		System.out.println("-------------------");
 	}
 
 	public static void main(String[] args) {
-//		testPQK();
-//		testMap();
+		testPQK();
+		testMap();
 		testSet();
-//		testGraph();
-//		testRecommender();
+		testGraph();
+		testRecommender();
 	}
 }
