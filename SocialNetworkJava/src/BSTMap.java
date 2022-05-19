@@ -32,6 +32,24 @@ public class BSTMap<K extends Comparable<K>, T> implements Map<K, T> {
         return insert(k, e);
     }
 
+    private T exists(K k) {
+        if (root == null) return null;
+
+        BSTMapNode<K,T> node = root;
+        while (node != null) {
+            K nKey = node.key;
+            T data = node.data;
+            if (nKey == k) {
+                return data;
+            } else if (nKey.compareTo(k) > 0) {
+                node = node.left;
+            } else {
+                node = node.right;
+            }
+        }
+        return null;
+    }
+
     @Override
     public Pair<Boolean, T> retrieve(K k) {
         if (findKey(k)) {
@@ -106,11 +124,11 @@ public class BSTMap<K extends Comparable<K>, T> implements Map<K, T> {
 
     @Override
     public boolean remove(K k) {
-        boolean removed = false;
-        BSTMapNode<K, T> p;
-        p = remove(k, root, removed);//Not change
+        if(exists(k) == null) return false; // if not exist
+        BSTMapNode<K,T> p;
+        p = remove(k, root, false);
         root = p;
-        return removed;
+        return exists(k) == null;
     }
 
     private BSTMapNode<K, T> remove(K key, BSTMapNode<K, T> p, boolean flag) {
@@ -233,4 +251,26 @@ public class BSTMap<K extends Comparable<K>, T> implements Map<K, T> {
             }
         };
     }
+
+/*    public static void main(String[] args) {
+        BSTMap<Integer,Integer> set = new BSTMap<Integer,Integer>();
+
+        set.insert(6,6);
+        set.insert(7,9);
+        set.insert(8,12);
+
+        Iterator<Pair<Integer,Integer>> integerIterator = set.maxIt();
+//        integerIterator.isValid();
+
+//        System.out.println(integerIterator.next());
+        boolean remove = set.update(8,15);
+        System.out.println(set.retrieve(8).second);
+        System.out.println(set.remove(8));
+        System.out.println(remove);
+
+        Iterator<Pair<Integer,Integer>> integerIterator2 = set.minIt();
+        while (integerIterator2.isValid()) {
+            System.out.println(integerIterator2.next().second);
+        }
+    }*/
 }

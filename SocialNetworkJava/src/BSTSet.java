@@ -193,6 +193,7 @@ public class BSTSet<K extends Comparable<K>> implements Set<K> {
 		};
 	}
 
+/*
 	public static void main(String[] args) {
 		BSTSet<Integer> set = new BSTSet<>();
 
@@ -207,10 +208,11 @@ public class BSTSet<K extends Comparable<K>> implements Set<K> {
 		boolean remove = set.remove(7);
 		System.out.println(remove);
 
-		Iterator<Integer> integerIterator2 = set.minIt();
+		Iterator<Integer> integerIterator2 = set.maxIt();
 		while (integerIterator2.isValid()) {
-			System.out.println(integerIterator2.next());
+			System.out.println(integerIterator2.prev());
 		}
 	}
+*/
 
 }
