@@ -1,6 +1,7 @@
 public class BSTSet<K extends Comparable<K>> implements Set<K> {
 
-	public BSTSetNode<K> root; // Do not change this
+	// Do not change this
+	public BSTSetNode<K> root;
 
 	@Override
 	public int size() {

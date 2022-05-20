@@ -115,20 +115,20 @@ public class Main {
 		}
 		System.out.println("----------");
 		{
-//			PQK<Double, Integer> top = Recommender.recommendWCN(g, 3, 4);
-//			while (top.length() > 0) {
-//				Pair<Double, Integer> e = top.serve();
-//				System.out.println(e.second + "\t" + e.first);
-//			}
+			PQK<Double, Integer> top = Recommender.recommendWCN(g, 3, 4);
+			while (top.length() > 0) {
+				Pair<Double, Integer> e = top.serve();
+				System.out.println(e.second + "\t" + e.first);
+			}
 		}
 		System.out.println("-------------------");
 	}
 
 	public static void main(String[] args) {
-		testPQK();
-		testMap();
-		testSet();
-		testGraph();
+//		testPQK();
+//		testMap();
+//		testSet();
+//		testGraph();
 		testRecommender();
 	}
 }
